@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://propiedades.planfibra.cl/sitemap.xml
