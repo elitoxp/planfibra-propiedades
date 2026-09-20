@@ -1,9 +1,160 @@
 <!doctype html>
-<html lang="es-CL"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Publicar propiedad | CasaRey</title><meta name="description" content="Prepara tu aviso para publicar una propiedad en CasaRey.">
-<link rel="canonical" href="https://propiedades.planfibra.cl/publicar/"><link rel="stylesheet" href="/assets/site.css?v=1"></head>
-<body><header class="top"><div class="wrap nav"><a class="brand" href="/"><span class="mark">⌂</span><span>CasaRey<small>Propiedades</small></span></a><a class="publish" href="/">Volver</a></div></header>
-<main><section class="section"><div class="wrap" style="max-width:820px"><span class="eyebrow">Publica con nosotros</span><h1 style="font-size:clamp(46px,7vw,72px)">Prepara tu aviso.</h1><p class="lead">Completa los datos principales. En esta primera versión generamos una vista previa antes de activar la recepción de publicaciones reales.</p>
-<div class="heroPanel"><div class="searchGrid"><label>Operación<select id="pOp"><option>Venta</option><option>Arriendo</option></select></label><label>Tipo<select id="pType"><option>Casa</option><option>Departamento</option><option>Parcela</option><option>Terreno</option><option>Comercial</option></select></label><label class="wide">Título<input id="pTitle" placeholder="Ej: Casa 3 dormitorios con patio"></label><label>Comuna<input id="pCommune" placeholder="Ej: Concepción"></label><label>Precio<input id="pPrice" placeholder="Ej: UF 4.500 o $550.000"></label><label>Superficie<input id="pArea" placeholder="Ej: 120 m²"></label><label>Dormitorios<input id="pBeds" inputmode="numeric"></label><label class="wide">Descripción<textarea id="pDesc" rows="6" placeholder="Describe la propiedad, sector, equipamiento y condiciones."></textarea></label><button class="primary wide" id="previewBtn">Crear vista previa</button></div></div>
-<div id="previewBox" style="display:none;margin-top:18px" class="heroPanel"></div></div></section></main>
-<script>document.querySelector('#previewBtn').onclick=()=>{const g=id=>document.querySelector(id).value||'—';const box=document.querySelector('#previewBox');box.style.display='block';box.innerHTML='<span class="eyebrow">Vista previa</span><h2>'+g('#pTitle')+'</h2><p>'+g('#pOp')+' · '+g('#pType')+' · '+g('#pCommune')+'</p><div class="price">'+g('#pPrice')+'</div><p>'+g('#pArea')+' · '+g('#pBeds')+' dormitorios</p><p>'+g('#pDesc')+'</p><p><b>Estado:</b> borrador local, aún no publicado.</p>';};</script></body></html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Publicar propiedad | CasaRey</title>
+<meta name="description" content="Envía una casa, departamento, parcela, terreno o propiedad comercial para revisión y publicación en CasaRey.">
+<link rel="canonical" href="https://propiedades.planfibra.cl/publicar/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css?v=2">
+<style>
+.formStatus{margin-top:14px;padding:14px 16px;border-radius:14px;display:none;font-weight:700}
+.formStatus.ok{display:block;background:#ecfdf3;color:#166534}
+.formStatus.bad{display:block;background:#fff1f2;color:#9f1239}
+.honeypot{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+.consentRow{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#667085}
+.consentRow input{width:auto;margin-top:4px}
+.actionsRow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.actionsRow{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap nav">
+<a class="brand" href="/"><span class="mark">⌂</span><span>CasaRey<small>Propiedades</small></span></a>
+<a class="publish" href="/">Volver</a>
+</div></header>
+
+<main><section class="section"><div class="wrap" style="max-width:820px">
+<span class="eyebrow">Publica con nosotros</span>
+<h1 style="font-size:clamp(46px,7vw,72px)">Envía tu propiedad.</h1>
+<p class="lead">Completa los datos principales. Revisamos el aviso antes de publicarlo y te contactamos si necesitamos fotos o antecedentes adicionales.</p>
+
+<form id="publishForm" class="heroPanel" novalidate>
+<div class="searchGrid">
+<label>Operación
+<select id="pOp" required><option>Venta</option><option>Arriendo</option></select>
+</label>
+<label>Tipo
+<select id="pType" required><option>Casa</option><option>Departamento</option><option>Parcela</option><option>Terreno</option><option>Comercial</option></select>
+</label>
+
+<label class="wide">Título
+<input id="pTitle" maxlength="120" required placeholder="Ej: Casa 3 dormitorios con patio">
+</label>
+<label>Comuna
+<input id="pCommune" maxlength="80" required placeholder="Ej: Concepción">
+</label>
+<label>Precio
+<input id="pPrice" maxlength="80" required placeholder="Ej: UF 4.500 o $550.000">
+</label>
+<label>Superficie
+<input id="pArea" maxlength="60" placeholder="Ej: 120 m²">
+</label>
+<label>Dormitorios
+<input id="pBeds" inputmode="numeric" min="0" max="30" type="number">
+</label>
+
+<label class="wide">Descripción
+<textarea id="pDesc" rows="6" maxlength="2500" required placeholder="Describe la propiedad, sector, equipamiento y condiciones."></textarea>
+</label>
+
+<div class="wide" style="border-top:1px solid #e5e7eb;margin-top:4px;padding-top:18px">
+<span class="eyebrow">Datos de contacto</span>
+</div>
+<label>Nombre
+<input id="pName" maxlength="100" required autocomplete="name">
+</label>
+<label>Teléfono
+<input id="pPhone" maxlength="40" required inputmode="tel" autocomplete="tel" placeholder="+56 9 ...">
+</label>
+<label class="wide">Correo
+<input id="pEmail" type="email" maxlength="160" autocomplete="email" placeholder="Opcional">
+</label>
+
+<label class="honeypot" aria-hidden="true">Sitio web
+<input id="pWebsite" tabindex="-1" autocomplete="off">
+</label>
+
+<label class="wide consentRow">
+<input id="pConsent" type="checkbox" required>
+<span>Acepto que CasaRey use estos datos para revisar el aviso y contactarme. He leído la <a href="/legal/privacidad/" target="_blank" rel="noopener">política de privacidad</a>.</span>
+</label>
+
+<div class="wide actionsRow">
+<button class="primary" type="button" id="previewBtn">Vista previa</button>
+<button class="primary" type="submit" id="submitBtn">Enviar para revisión</button>
+</div>
+</div>
+<div id="formStatus" class="formStatus" role="status" aria-live="polite"></div>
+</form>
+
+<div id="previewBox" style="display:none;margin-top:18px" class="heroPanel"></div>
+</div></section></main>
+
+<script>
+const API='https://planfibra.cl/api/propiedades-submit.php';
+const $=s=>document.querySelector(s);
+const val=id=>$(id).value.trim();
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function payload(){
+  return {
+    operation:val('#pOp'),type:val('#pType'),title:val('#pTitle'),commune:val('#pCommune'),
+    price:val('#pPrice'),area:val('#pArea'),beds:val('#pBeds'),description:val('#pDesc'),
+    name:val('#pName'),phone:val('#pPhone'),email:val('#pEmail'),
+    consent:$('#pConsent').checked,website:val('#pWebsite')
+  };
+}
+
+$('#previewBtn').onclick=()=>{
+  const p=payload(),box=$('#previewBox');
+  box.style.display='block';
+  box.innerHTML='<span class="eyebrow">Vista previa</span>'+
+    '<h2>'+esc(p.title||'Sin título')+'</h2>'+
+    '<p>'+esc(p.operation)+' · '+esc(p.type)+' · '+esc(p.commune||'Comuna pendiente')+'</p>'+
+    '<div class="price">'+esc(p.price||'Precio pendiente')+'</div>'+
+    '<p>'+esc(p.area||'Superficie pendiente')+(p.beds?' · '+esc(p.beds)+' dormitorios':'')+'</p>'+
+    '<p>'+esc(p.description||'Descripción pendiente')+'</p>'+
+    '<p><b>Contacto:</b> '+esc(p.name||'—')+' · '+esc(p.phone||'—')+'</p>'+
+    '<p><b>Estado:</b> borrador local, todavía no enviado.</p>';
+  box.scrollIntoView({behavior:'smooth',block:'nearest'});
+};
+
+$('#publishForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const form=e.currentTarget,status=$('#formStatus'),btn=$('#submitBtn');
+  status.className='formStatus';
+  status.textContent='';
+  if(!form.reportValidity()) return;
+
+  const p=payload();
+  if(p.description.length<20){
+    status.className='formStatus bad';
+    status.textContent='Agrega una descripción de al menos 20 caracteres.';
+    return;
+  }
+
+  btn.disabled=true;
+  btn.textContent='Enviando…';
+  try{
+    const res=await fetch(API,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(p)
+    });
+    const data=await res.json().catch(()=>({}));
+    if(!res.ok||!data.ok) throw new Error(data.error||'No se pudo enviar');
+    status.className='formStatus ok';
+    status.textContent='Recibido para revisión. Código: '+data.id+'. Te contactaremos si necesitamos más información o fotos.';
+  }catch(err){
+    status.className='formStatus bad';
+    status.textContent='No pudimos enviar el aviso ahora. Intenta nuevamente en unos minutos.';
+  }finally{
+    btn.disabled=false;
+    btn.textContent='Enviar para revisión';
+  }
+});
+</script>
+</body>
+</html>
