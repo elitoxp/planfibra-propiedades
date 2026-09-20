@@ -4,3 +4,4 @@ function applyFilters(){const op=q('#fOperation').value,type=q('#fType').value,c
 q('#clearFilters').addEventListener('click',()=>{q('#fOperation').value='';q('#fType').value='';q('#fCommune').value='';applyFilters();});
 q('#heroSearch').addEventListener('click',()=>{q('#fOperation').value=q('#heroOperation').value;q('#fType').value=q('#heroType').value;q('#fCommune').value=q('#heroCommune').value;applyFilters();location.hash='propiedades';});
 let savedCount=0;qa('[data-fav]').forEach(b=>b.addEventListener('click',()=>{const on=b.classList.toggle('active');b.textContent=on?'♥':'♡';savedCount+=on?1:-1;q('#savedCount').textContent=savedCount;}));
+q('#savedBtn').addEventListener('click',()=>{let n=0;qa('.card').forEach(c=>{const ok=!!c.querySelector('.fav.active');c.style.display=ok?'':'none';if(ok)n++;});q('#resultCount').textContent=n+' guardados';});
