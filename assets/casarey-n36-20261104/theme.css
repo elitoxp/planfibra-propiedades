@@ -1,0 +1,75 @@
+/* CasaRey | Sistema visual N.º36, 2026-11-04.
+   Aislamiento: solo body.cr36-home. No modifica la API ni los datos inmobiliarios. */
+body.cr36-home{--ink:#123c34;--accent:#f5d29a;--muted:#5e716e;--line:#e0e9e3;--radius:22px;background:#f7faf7;color:#213d39}
+body.cr36-home .top{background:rgba(253,252,248,.97);box-shadow:0 7px 25px rgba(14,49,39,.075);border-bottom:1px solid #e5ebe5}
+body.cr36-home .brand{color:#183f36;letter-spacing:-.05em}
+body.cr36-home .brand small{color:#7a847c}
+body.cr36-home .mark{background:#153f37;color:#ffe7b4;border-radius:14px}
+body.cr36-home .nav nav a{color:#345a52;font-weight:800}
+body.cr36-home .nav nav a:hover{color:#0f7460}
+body.cr36-home .publish{background:#154c40;color:#fff;border:1px solid #154c40;border-radius:12px;box-shadow:0 9px 20px rgba(11,77,61,.15)}
+body.cr36-home .publish:hover{background:#0a6551;color:#fff}
+body.cr36-home :is(a,button,select,input,summary,textarea):focus-visible{outline:3px solid #eebd57;outline-offset:3px}
+body.cr36-home .hero{position:relative;isolation:isolate;overflow:hidden;padding:80px 0 83px;color:#fff;background:#102d2b}
+body.cr36-home .cr36-hero-photo{position:absolute;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+body.cr36-home .cr36-hero-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 54%;filter:saturate(.8) contrast(1.06)}
+body.cr36-home .hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(95deg,rgba(5,34,29,.94) 0%,rgba(7,42,37,.85) 35%,rgba(10,38,37,.64) 66%,rgba(10,44,40,.75) 100%)}
+body.cr36-home .heroGrid{position:relative;z-index:1;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,70px)}
+body.cr36-home .heroGrid>div:first-child{min-width:0}
+body.cr36-home .hero .eyebrow{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid rgba(255,232,176,.4);border-radius:99px;background:rgba(230,198,133,.14);color:#ffe6b2;letter-spacing:.13em;font-size:.72rem;font-weight:900}
+body.cr36-home .hero h1{font-size:clamp(2.8rem,5.7vw,5.6rem);line-height:1.04;letter-spacing:-.066em;margin:21px 0 20px;color:#fff;max-width:770px;text-wrap:balance}
+body.cr36-home .hero h1 em{color:#ffe0a5;font-style:normal;text-decoration:none}
+body.cr36-home .hero .lead{font-size:clamp(1rem,1.9vw,1.22rem);line-height:1.68;color:#edf9f4;max-width:640px;text-wrap:pretty}
+body.cr36-home .hero .trust{margin-top:24px;gap:9px 16px}
+body.cr36-home .hero .trust span{display:inline-flex;align-items:center;padding:7px 11px;border:1px solid rgba(241,251,239,.28);border-radius:999px;background:rgba(6,46,39,.35);color:#f2f6ef;font-size:.74rem;backdrop-filter:blur(8px)}
+body.cr36-home .heroPanel{padding:30px;background:rgba(255,253,249,.98);border-radius:25px;border:1px solid rgba(255,254,247,.75);box-shadow:0 30px 73px rgba(2,17,18,.24);color:#183b35}
+body.cr36-home .heroPanel h2{color:#1d4b40;font-size:clamp(1.55rem,3vw,1.9rem);letter-spacing:-.05em;margin:0 0 19px}
+body.cr36-home .heroPanel label{color:#405e58}
+body.cr36-home .heroPanel input,body.cr36-home .heroPanel select{background:#f9fbf8;border:1px solid #cdded4;border-radius:12px;color:#203d37}
+body.cr36-home .heroPanel input:focus,body.cr36-home .heroPanel select:focus{border-color:#2f826f;outline:2px solid rgba(65,140,122,.14)}
+body.cr36-home .heroPanel .primary{background:#19634f;color:#fff;border-radius:12px;box-shadow:0 9px 18px rgba(22,95,72,.16)}
+body.cr36-home .heroPanel .primary:hover{background:#0c765c}
+body.cr36-home .stats{background:#143d36;color:#fff}
+body.cr36-home .statsGrid>div{border-right:1px solid rgba(255,255,255,.15);padding:23px 19px}
+body.cr36-home .stats b{color:#fce2b3;font-weight:900;font-size:1.35rem}
+body.cr36-home .stats span{color:#e0eeea;font-size:.77rem;line-height:1.55}
+body.cr36-home .section{padding-block:70px}
+body.cr36-home #propiedades{background:linear-gradient(160deg,#f7faf7 0%,#eff6f1 100%)}
+body.cr36-home .sectionHead h2{color:#1f443b;letter-spacing:-.055em}
+body.cr36-home .sectionHead .eyebrow{color:#317a65}
+body.cr36-home .sectionHead p{color:#547269;max-width:500px;line-height:1.63}
+body.cr36-home .cr36-demo-note{margin:0 0 23px;background:#edf4e7;border:1px solid #c8ddca;border-left:5px solid #41836d;border-radius:13px;color:#2c5247;padding:13px 17px;line-height:1.55;font-size:.84rem;font-weight:680}
+body.cr36-home .filters{gap:11px;margin-bottom:18px}
+body.cr36-home .filters input,body.cr36-home .filters select,body.cr36-home .filters button{background:#fff;border:1px solid #d9e5dd;border-radius:12px;min-height:47px}
+body.cr36-home .savedBtn{color:#23614e;font-weight:850}
+body.cr36-home .propertyGrid{gap:21px}
+body.cr36-home .card{border:1px solid #e0eae1;border-radius:22px;box-shadow:0 10px 29px rgba(19,65,51,.07);background:#fff;transition:transform .2s ease,box-shadow .2s ease}
+body.cr36-home .card:hover{transform:translateY(-4px);box-shadow:0 22px 48px rgba(19,65,51,.14)}
+body.cr36-home .photo{height:227px;background:#deebe0;position:relative}
+body.cr36-home .photo:before,body.cr36-home .photo:after{display:none!important}
+body.cr36-home .cr36-listing-img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;background:#dae7df;filter:saturate(.92)}
+body.cr36-home .card .badge,body.cr36-home .card .demo,body.cr36-home .card .fav,body.cr36-home .cr36-photo-credit{z-index:2;position:absolute}
+body.cr36-home .card .badge{background:rgba(14,49,39,.91);color:#fff;top:13px;left:13px;padding:8px 11px;font-size:.7rem}
+body.cr36-home .card .demo{background:#f9d79b;color:#4c3c25;bottom:13px;left:13px;padding:8px 10px;border-radius:9px}
+body.cr36-home .card .fav{top:13px;right:13px;background:rgba(255,255,255,.94);color:#164b3b;box-shadow:0 5px 15px rgba(0,0,0,.12)}
+body.cr36-home .card .fav.active{background:#f6cb87;color:#184537}
+body.cr36-home .cr36-photo-credit{right:12px;bottom:13px;font-size:.61rem;color:#fff;background:rgba(20,38,32,.75);padding:5px 7px;border-radius:7px;line-height:1.2}
+body.cr36-home .cardBody{padding:20px 20px 22px}
+body.cr36-home .location{color:#537568;font-size:.77rem}
+body.cr36-home .card h3{color:#223c35;font-size:1.27rem;line-height:1.24;margin:8px 0 11px}
+body.cr36-home .features{color:#587267;font-size:.77rem;gap:9px}
+body.cr36-home .price{color:#174e3d;font-size:1.73rem;margin:16px 0}
+body.cr36-home .card a.primary{background:#1c604c;color:#fff;border-radius:12px;min-height:46px}
+body.cr36-home .card a.primary:hover{background:#0e7659}
+body.cr36-home .ownerCta{position:relative;background:linear-gradient(125deg,#15493e,#102c2f 75%);overflow:hidden}
+body.cr36-home .ownerCta:after{content:"";position:absolute;right:-100px;top:-170px;width:480px;height:480px;border:1px solid rgba(243,221,163,.2);border-radius:50%;box-shadow:0 0 0 70px rgba(236,218,164,.05);pointer-events:none}
+body.cr36-home .ownerCta .wrap{position:relative;z-index:1}
+body.cr36-home .ownerCta h2{color:#fff}
+body.cr36-home .ownerCta p{color:#d8e9df}
+body.cr36-home .ownerCta .whiteBtn{color:#174b3e;background:#fff3d8}
+body.cr36-home .section.alt{background:#fff;border-color:#e2eae3}
+body.cr36-home .footerBrand{color:#fff}
+@media(max-width:950px){body.cr36-home .heroGrid{grid-template-columns:1fr;gap:27px}body.cr36-home .hero{padding:62px 0 62px}body.cr36-home .heroPanel{max-width:680px}}
+@media(max-width:640px){body.cr36-home .hero{padding:44px 0 44px}body.cr36-home .hero h1{font-size:clamp(2.75rem,10.4vw,4rem);line-height:1.04}body.cr36-home .hero .lead{font-size:1rem}body.cr36-home .heroPanel{padding:21px 18px;border-radius:19px}body.cr36-home .hero .eyebrow{font-size:.65rem}body.cr36-home .hero .trust{gap:8px}body.cr36-home .hero .trust span{font-size:.68rem;padding:6px 9px}body.cr36-home .section{padding-block:47px}body.cr36-home .sectionHead h2{font-size:2.25rem}body.cr36-home .propertyGrid{gap:17px}body.cr36-home .photo{height:210px}body.cr36-home .statsGrid>div{padding:16px 19px}body.cr36-home .cr36-demo-note{font-size:.79rem}body.cr36-home .nav{gap:10px}body.cr36-home .publish{font-size:.77rem;padding:10px 11px}}
+@media(max-width:350px){body.cr36-home .hero h1{font-size:2.55rem}body.cr36-home .heroPanel{padding:17px 13px}body.cr36-home .brand{font-size:1.05rem}}
+@media(prefers-reduced-motion:reduce){body.cr36-home .card{transition:none!important}body.cr36-home .card:hover{transform:none}}
