@@ -38,7 +38,14 @@ function start(){
  h.appendChild(titleEl);h.appendChild(intro);h.appendChild(btn);h.appendChild(frame);h.appendChild(link);box.appendChild(h);
  var footer=document.querySelector('footer');
  if(footer&&footer.parentNode)footer.parentNode.insertBefore(box,footer);else document.body.appendChild(box);
- var opened=false,ready=false;
+ var opened=false,ready=false,radarStarted=false,radarSubmitted=false;
+ function radarTrack(name,metadata){
+   try{return !!(window.PFRadar&&typeof window.PFRadar.track==='function'&&window.PFRadar.track(name,metadata||{selector:'#pf21-network-frame'}));}
+   catch(ignore){return false;}
+ }
+ function radarStart(){
+   if(!radarStarted)radarStarted=radarTrack('start_lead_form',{selector:'#pf21-network-frame',stage:'contact'});
+ }
  function open(){
    if(!opened){frame.src=url;opened=true;}
    frame.hidden=false;btn.setAttribute('aria-expanded','true');btn.textContent='Ocultar formulario';
@@ -46,7 +53,17 @@ function start(){
  function close(){frame.hidden=true;btn.setAttribute('aria-expanded','false');btn.textContent='Escribir consulta';}
  btn.addEventListener('click',function(){if(frame.hidden)open();else close();});
  window.addEventListener('message',function(ev){
-   if(ev.origin!=='https://planfibra.cl'||ev.source!==frame.contentWindow||!ev.data||ev.data.type!=='pf21-network-resize')return;
+   if(ev.origin!=='https://planfibra.cl'||ev.source!==frame.contentWindow||!ev.data)return;
+   if(ev.data.type==='pf21-network-analytics'&&ev.data.version===1){
+     var kind=ev.data.event,meta={selector:'#pf21-network-frame',stage:'contact'};
+     if(!/^(start|submit_attempt|submit_success|submit_error)$/.test(kind))return;
+     if(kind==='start'){radarStart();return;}
+     if(kind==='submit_attempt'){radarStart();radarTrack('click_cta',meta);return;}
+     if(kind==='submit_success'){radarStart();if(!radarSubmitted)radarSubmitted=radarTrack('submit_lead_form',meta);return;}
+     if(kind==='submit_error'){radarTrack('form_validation_error',{selector:'#pf21-network-frame',reason:'contact_submit_error'});return;}
+     return;
+   }
+   if(ev.data.type!=='pf21-network-resize')return;
    var height=Number(ev.data.height);if(height>=420&&height<=2800)frame.style.height=Math.ceil(height)+'px';
    if(isMobile&&!ready){
       ready=true;
@@ -56,6 +73,13 @@ function start(){
    }
  });
  if(isMobile){open();}
+ window.addEventListener('pagehide',function(){
+   if(!radarStarted||radarSubmitted)return;
+   if(radarTrack('form_abandoned',{selector:'#pf21-network-frame',stage:'contact',reason:'pagehide'})
+      && window.PFRadar && typeof window.PFRadar.flush==='function'){
+     try{window.PFRadar.flush({keepalive:true});}catch(ignore){}
+   }
+ },true);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
